@@ -1,32 +1,48 @@
-# React + TypeScript + Vite
+# Bloomy 🌱
 
-This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
+A little memory-match game for little friends aged 2-5, built as a vibe-coding side project.
 
-Currently, two official plugins are available:
+Bloomy is not a commercial product — it's something made for a little one to enjoy
+while picking up a few words along the way (fruits, animals, colors...) in Vietnamese,
+with English shown as an optional toggle.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## What it does
 
-## React Compiler
+- **Memory match**: flip cards, find the matching pairs, get a little celebration
+  when you win.
+- **Categories**: fruit and animal decks today, easy to add more.
+- **Mix mode**: combine multiple categories into one round.
+- **Difficulty**: pick how many pairs to play with.
+- Runs entirely in the browser — no backend, no accounts, no tracking. Installable
+  as a PWA so it can live on a home screen like a native app.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## Tech stack
 
-## Expanding the Oxlint configuration
+Vite, React 19, TypeScript, Tailwind CSS, Motion (animations), Vitest (tests).
+Card artwork comes from free stock photos (Pexels) and open emoji sets, fetched
+by small scripts in `scripts/`.
 
-If you are developing a production application, we recommend enabling type-aware lint rules by installing `oxlint-tsgolint` and editing `.oxlintrc.json`:
+## Getting started
 
-```json
-{
-  "$schema": "./node_modules/oxlint/configuration_schema.json",
-  "plugins": ["react", "typescript", "oxc"],
-  "options": {
-    "typeAware": true
-  },
-  "rules": {
-    "react/rules-of-hooks": "error",
-    "react/only-export-components": ["warn", { "allowConstantExport": true }]
-  }
-}
+```bash
+npm install
+npm run dev
 ```
 
-See the [Oxlint rules documentation](https://oxc.rs/docs/guide/usage/linter/rules) for the full list of rules and categories.
+Other useful scripts:
+
+```bash
+npm test              # run the test suite
+npm run lint           # lint the code
+npm run build           # production build
+npm run generate:photos -- <category> [ids...]   # fetch/refresh artwork (needs a Pexels API key, see .env.example)
+```
+
+## Project docs
+
+Design notes and the implementation plan live under `docs/superpowers/`, written
+while building this with an AI pair-programming workflow.
+
+## License
+
+No specific license — this is a personal, non-commercial project shared for fun.
