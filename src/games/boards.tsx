@@ -4,6 +4,7 @@ import { ShadowMatchBoard } from './shadow-match/ShadowMatchBoard';
 import { SortBoard } from './sort/SortBoard';
 import { CountingBoard } from './counting/CountingBoard';
 import { CompareBoard } from './compare/CompareBoard';
+import { ArithmeticBoard } from './arithmetic/ArithmeticBoard';
 
 export interface BoardProps {
   itemIds: string[];
@@ -22,6 +23,7 @@ const boards: Record<string, ComponentType<BoardProps>> = {
   sort: SortBoard,
   counting: CountingBoard,
   compare: CompareBoard,
+  arithmetic: ArithmeticBoard,
 };
 
 export function getBoard(gameId: string): ComponentType<BoardProps> {
