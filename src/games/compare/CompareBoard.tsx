@@ -10,8 +10,12 @@ interface CompareBoardProps {
 }
 
 function questionLabel(type: 'size' | 'quantity', wantGreater: boolean): string {
-  if (type === 'size') return wantGreater ? 'To hơn' : 'Nhỏ hơn';
-  return wantGreater ? 'Nhiều hơn' : 'Ít hơn';
+  // Pairs the math symbol with the Vietnamese word so kids start associating > / <
+  // with "hơn"/"ít hơn" early, not just the words on their own.
+  const symbol = wantGreater ? '>' : '<';
+  const word =
+    type === 'size' ? (wantGreater ? 'To hơn' : 'Nhỏ hơn') : wantGreater ? 'Nhiều hơn' : 'Ít hơn';
+  return `${symbol} ${word}`;
 }
 
 interface SideContentProps {
@@ -27,9 +31,9 @@ function SideContent({ type, shape, magnitude }: SideContentProps) {
     return <span style={{ fontSize: `${fontSize}rem` }}>{shape}</span>;
   }
   return (
-    <div className="grid grid-cols-[repeat(auto-fill,minmax(2rem,2.5rem))] justify-center gap-1">
+    <div className="grid w-full grid-cols-[repeat(auto-fill,minmax(2rem,2.5rem))] justify-center gap-1 p-3">
       {Array.from({ length: magnitude }, (_, i) => (
-        <span key={i} className="text-2xl">
+        <span key={i} className="text-center text-2xl">
           {shape}
         </span>
       ))}
