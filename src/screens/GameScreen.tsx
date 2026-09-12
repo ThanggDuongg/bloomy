@@ -1,17 +1,34 @@
 import { useMemo, useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { MemoryMatchBoard } from '../games/memory-match/MemoryMatchBoard';
+import { getBoard } from '../games/boards';
 
 interface GameScreenProps {
+  gameId: string;
   itemIds: string[];
+  modeId?: string;
+  presetId?: string;
+  /** Bumped by App.tsx on every startRound call; remounts the board for a fresh game. */
+  roundKey: number;
   onExit: () => void;
+  onBackToSetup: () => void;
   onPlayAgain: () => void;
 }
 
-export function GameScreen({ itemIds, onExit, onPlayAgain }: GameScreenProps) {
+export function GameScreen({
+  gameId,
+  itemIds,
+  modeId,
+  presetId,
+  roundKey,
+  onExit,
+  onBackToSetup,
+  onPlayAgain,
+}: GameScreenProps) {
   const [won, setWon] = useState(false);
-  // Re-key the board so Play-again rebuilds a fresh deck.
-  const boardKey = useMemo(() => itemIds.join('-'), [itemIds]);
+  // getBoard looks up an existing component from a static module-level map, it
+  // never defines a new one, so identity stays stable across renders for a given
+  // gameId — this is a false positive from the "components created during render" rule.
+  const Board = useMemo(() => getBoard(gameId), [gameId]);
 
   return (
     <main className="from-sky-deep to-sky-soft relative flex min-h-screen flex-col bg-gradient-to-b">
@@ -23,7 +40,15 @@ export function GameScreen({ itemIds, onExit, onPlayAgain }: GameScreenProps) {
         ← Trang chủ
       </button>
 
-      <MemoryMatchBoard key={boardKey} itemIds={itemIds} onComplete={() => setWon(true)} />
+      {/* oxlint-disable-next-line react/static-components -- false positive: Board is
+          a stable reference looked up from a static map, not created during render */}
+      <Board
+        key={roundKey}
+        itemIds={itemIds}
+        modeId={modeId}
+        presetId={presetId}
+        onComplete={() => setWon(true)}
+      />
 
       <AnimatePresence>
         {won && (
@@ -46,6 +71,22 @@ export function GameScreen({ itemIds, onExit, onPlayAgain }: GameScreenProps) {
             >
               Chơi lại
             </button>
+            <div className="flex gap-3">
+              <button
+                type="button"
+                onClick={onBackToSetup}
+                className="rounded-full bg-white/90 px-5 py-3 font-bold text-earth shadow active:scale-95"
+              >
+                ⚙️ Đổi độ khó
+              </button>
+              <button
+                type="button"
+                onClick={onExit}
+                className="rounded-full bg-white/90 px-5 py-3 font-bold text-earth shadow active:scale-95"
+              >
+                🏠 Trang chủ
+              </button>
+            </div>
           </motion.div>
         )}
       </AnimatePresence>
