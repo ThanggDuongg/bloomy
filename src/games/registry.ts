@@ -3,6 +3,7 @@ import { sortModes, type SortMode } from './sort/modes';
 import { countingPresets } from './counting/presets';
 import { comparePresets } from './compare/presets';
 import { arithmeticPresets } from './arithmetic/presets';
+import { orderingPresets } from './ordering/presets';
 
 export interface GameMeta {
   id: string;
@@ -125,6 +126,18 @@ export const games: GameMeta[] = [
     defaultCount: 0,
     noCategories: true,
     presets: arithmeticPresets,
+  },
+  {
+    id: 'ordering',
+    name: 'Sắp xếp kích thước',
+    emoji: '📏',
+    // Same reasoning as counting/compare/arithmetic: presets replace the numeric
+    // slider, so these three fields are required by GameMeta but unused here.
+    minCount: 0,
+    maxCount: 0,
+    defaultCount: 0,
+    noCategories: true,
+    presets: orderingPresets,
   },
 ];
 

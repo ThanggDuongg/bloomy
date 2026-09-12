@@ -5,6 +5,7 @@ import { SortBoard } from './sort/SortBoard';
 import { CountingBoard } from './counting/CountingBoard';
 import { CompareBoard } from './compare/CompareBoard';
 import { ArithmeticBoard } from './arithmetic/ArithmeticBoard';
+import { OrderingBoard } from './ordering/OrderingBoard';
 
 export interface BoardProps {
   itemIds: string[];
@@ -24,6 +25,7 @@ const boards: Record<string, ComponentType<BoardProps>> = {
   counting: CountingBoard,
   compare: CompareBoard,
   arithmetic: ArithmeticBoard,
+  ordering: OrderingBoard,
 };
 
 export function getBoard(gameId: string): ComponentType<BoardProps> {
