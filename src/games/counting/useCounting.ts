@@ -1,8 +1,7 @@
 import { useState } from 'react';
+import { SHAPES } from '../shapes';
 import { pickChoices } from './pickChoices';
 import type { CountingConfig } from './presets';
-
-const SHAPES = ['⭐', '🔴', '❤️', '🌸', '🔵', '🟢'];
 
 export interface UseCountingOptions {
   onComplete: () => void;
