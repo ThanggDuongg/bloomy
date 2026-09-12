@@ -1,6 +1,7 @@
 import { SILHOUETTE_IDS, getShapeGroup } from '../data/silhouetteAssets';
 import { sortModes, type SortMode } from './sort/modes';
 import { countingPresets } from './counting/presets';
+import { comparePresets } from './compare/presets';
 
 export interface GameMeta {
   id: string;
@@ -99,6 +100,18 @@ export const games: GameMeta[] = [
     defaultCount: 0,
     noCategories: true,
     presets: countingPresets,
+  },
+  {
+    id: 'compare',
+    name: 'So sánh',
+    emoji: '⚖️',
+    // Same reasoning as the counting game: presets replace the numeric slider, so
+    // these three fields are required by GameMeta but unused here.
+    minCount: 0,
+    maxCount: 0,
+    defaultCount: 0,
+    noCategories: true,
+    presets: comparePresets,
   },
 ];
 

@@ -3,6 +3,7 @@ import { MemoryMatchBoard } from './memory-match/MemoryMatchBoard';
 import { ShadowMatchBoard } from './shadow-match/ShadowMatchBoard';
 import { SortBoard } from './sort/SortBoard';
 import { CountingBoard } from './counting/CountingBoard';
+import { CompareBoard } from './compare/CompareBoard';
 
 export interface BoardProps {
   itemIds: string[];
@@ -20,6 +21,7 @@ const boards: Record<string, ComponentType<BoardProps>> = {
   'shadow-match': ShadowMatchBoard,
   sort: SortBoard,
   counting: CountingBoard,
+  compare: CompareBoard,
 };
 
 export function getBoard(gameId: string): ComponentType<BoardProps> {
