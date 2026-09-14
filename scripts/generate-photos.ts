@@ -92,6 +92,7 @@ const SEARCH_TERM: Record<string, string> = {
 // cluttered image. Filled in during curation (see `npm run pexels:pick`). A pinned
 // id is fetched directly and always wins over search.
 const PHOTO_ID: Record<string, number> = {
+  blueberry: 5679194, // clear bright blue vs the previous near-black, underexposed shot
   longan: 5945881, // auto-search returned a street-vendor scene
   lemon: 36371030, // cleaner single lemon vs a leafy tree shot
   pear: 7636159, // cleaner single pear vs a leafy tree shot

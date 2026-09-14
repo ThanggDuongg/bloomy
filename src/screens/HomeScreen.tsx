@@ -24,7 +24,11 @@ export function HomeScreen({ onSelectGame }: HomeScreenProps) {
               className="flex w-40 flex-col items-center gap-3 rounded-3xl bg-white/80 p-6 shadow-lg transition-transform active:scale-95"
             >
               <span className="text-6xl">{game.emoji}</span>
-              <span className="text-xl font-extrabold text-earth">{game.name}</span>
+              {/* min-h reserves space for 2 lines so short and long names produce
+                  same-height cards instead of the card shrinking to fit 1 line. */}
+              <span className="flex min-h-14 items-center justify-center text-center text-xl font-extrabold text-earth">
+                {game.name}
+              </span>
             </button>
           ))}
         </div>

@@ -2,18 +2,26 @@ import * as Slider from '@radix-ui/react-slider';
 
 interface DifficultySelectorProps {
   value: number;
-  onChange: (pairs: number) => void;
+  onChange: (count: number) => void;
   min: number;
   max: number;
+  /** Word shown after the count, e.g. "cặp" or "món". Defaults to "cặp". */
+  unitLabel?: string;
 }
 
 const PRESETS = [
-  { label: 'Dễ', pairs: 4 },
-  { label: 'Vừa', pairs: 6 },
-  { label: 'Khó', pairs: 8 },
+  { label: 'Dễ', count: 4 },
+  { label: 'Vừa', count: 6 },
+  { label: 'Khó', count: 8 },
 ];
 
-export function DifficultySelector({ value, onChange, min, max }: DifficultySelectorProps) {
+export function DifficultySelector({
+  value,
+  onChange,
+  min,
+  max,
+  unitLabel = 'cặp',
+}: DifficultySelectorProps) {
   return (
     <div className="flex flex-col items-center gap-4">
       <div className="flex gap-3">
@@ -21,9 +29,9 @@ export function DifficultySelector({ value, onChange, min, max }: DifficultySele
           <button
             key={p.label}
             type="button"
-            onClick={() => onChange(p.pairs)}
+            onClick={() => onChange(p.count)}
             className={`rounded-xl px-4 py-2 font-bold text-earth shadow ${
-              value === p.pairs ? 'bg-peach' : 'bg-grass-soft'
+              value === p.count ? 'bg-peach' : 'bg-grass-soft'
             }`}
           >
             {p.label}
@@ -32,7 +40,9 @@ export function DifficultySelector({ value, onChange, min, max }: DifficultySele
       </div>
 
       <div className="flex w-64 items-center gap-3">
-        <span className="font-bold text-earth">{value} cặp</span>
+        <span className="font-bold text-earth">
+          {value} {unitLabel}
+        </span>
         <Slider.Root
           className="relative flex h-5 flex-1 touch-none items-center"
           value={[value]}
@@ -45,7 +55,7 @@ export function DifficultySelector({ value, onChange, min, max }: DifficultySele
             <Slider.Range className="absolute h-full rounded-full bg-grass" />
           </Slider.Track>
           <Slider.Thumb
-            aria-label="Số cặp"
+            aria-label={`Số ${unitLabel}`}
             className="block h-6 w-6 rounded-full bg-flower shadow"
           />
         </Slider.Root>

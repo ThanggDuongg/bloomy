@@ -13,6 +13,7 @@
     "format": "prettier --write .",
     "generate:images": "tsx scripts/generate-images.ts",
     "generate:photos": "tsx scripts/generate-photos.ts",
+    "generate:silhouettes": "tsx scripts/generate-silhouettes.ts",
     "pexels:pick": "tsx scripts/pexels-pick.ts",
     "prepare": "husky"
   },

@@ -1,10 +1,11 @@
 import type { Item } from './types';
 import { fruit } from './fruit';
 import { animal } from './animal';
+import { color } from './color';
 
 export type { Item };
 
-export const categories: Record<string, Item[]> = { fruit, animal };
+export const categories: Record<string, Item[]> = { fruit, animal, color };
 
 export interface CategoryMeta {
   id: string;
@@ -17,6 +18,7 @@ export interface CategoryMeta {
 export const categoryList: CategoryMeta[] = [
   { id: 'fruit', name: 'Trái cây', emoji: '🍓' },
   { id: 'animal', name: 'Động vật', emoji: '🐶' },
+  { id: 'color', name: 'Màu sắc', emoji: '🎨' },
 ];
 
 export const allItems: Item[] = Object.values(categories).flat();

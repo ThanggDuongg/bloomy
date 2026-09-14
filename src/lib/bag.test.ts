@@ -44,4 +44,30 @@ describe('drawFromBag', () => {
       expect(new Set(res.drawn).size).toBe(3);
     }
   });
+
+  describe('groupOf (at most one id per shape-group per round)', () => {
+    // a and b look-alike (same group); c and d are each visually unique.
+    const groupOf = (id: string) => (id === 'a' || id === 'b' ? 'lookalike' : id);
+
+    it('never draws two ids from the same group in one call', () => {
+      let state: BagState = { remaining: [] };
+      for (let round = 0; round < 30; round++) {
+        const res = drawFromBag(ids, 2, state, Math.random, groupOf);
+        state = res.state;
+        const groups = res.drawn.map(groupOf);
+        expect(new Set(groups).size).toBe(res.drawn.length);
+      }
+    });
+
+    it('still draws the requested count', () => {
+      const { drawn } = drawFromBag(ids, 2, { remaining: [] }, Math.random, groupOf);
+      expect(drawn).toHaveLength(2);
+    });
+
+    it('falls back to ignoring the constraint when count exceeds the number of groups', () => {
+      // Only 3 distinct groups exist (lookalike, c, d) but 4 are requested.
+      const { drawn } = drawFromBag(ids, 4, { remaining: [] }, Math.random, groupOf);
+      expect(drawn).toHaveLength(4);
+    });
+  });
 });
