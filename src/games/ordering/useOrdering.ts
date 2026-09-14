@@ -25,6 +25,9 @@ export interface UseOrderingResult {
   itemCount: number;
   /** Items still unmatched — i.e. still in the tray — for the current round. */
   items: Item[];
+  /** Slot id ("0", "1", ...) -> the item settled there, so the board can render it
+   *  in place instead of the slot just going blank once its item is matched. */
+  settledBySlot: Record<string, Item>;
   matched: Set<string>;
   isComplete: boolean;
   /** `targetSlot` is a decimal-string slot id ("0", "1", ...), or null if the drop
@@ -92,12 +95,20 @@ export function useOrdering(
     }
   };
 
+  const settledBySlot: Record<string, Item> = {};
+  for (const item of state.items) {
+    if (matched.has(item.id)) {
+      settledBySlot[String(state.rankById[item.id])] = item;
+    }
+  }
+
   return {
     round: state.round,
     totalQuestions: config.questions,
     shape: state.shape,
     itemCount: config.itemCount,
     items: state.items.filter((item) => !matched.has(item.id)),
+    settledBySlot,
     matched,
     isComplete,
     handleDrop,

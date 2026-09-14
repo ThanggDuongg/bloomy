@@ -28,6 +28,7 @@ describe('useOrdering', () => {
     });
     expect(result.current.matched.has(smallestId)).toBe(true);
     expect(result.current.items.some((i) => i.id === smallestId)).toBe(false);
+    expect(result.current.settledBySlot['0']?.id).toBe(smallestId);
     expect(onMatch).toHaveBeenCalledTimes(1);
   });
 

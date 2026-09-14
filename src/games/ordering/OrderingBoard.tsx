@@ -19,11 +19,12 @@ function magnitudeFontSize(magnitude: number): string {
 export function OrderingBoard({ presetId, onComplete }: OrderingBoardProps) {
   const config = getOrderingPreset(presetId ?? '');
   const { playClick, playSuccess, playError } = useSound();
-  const { round, totalQuestions, shape, itemCount, items, handleDrop } = useOrdering(config, {
-    onComplete,
-    onMatch: playSuccess,
-    onMismatch: playError,
-  });
+  const { round, totalQuestions, shape, itemCount, items, settledBySlot, handleDrop } =
+    useOrdering(config, {
+      onComplete,
+      onMatch: playSuccess,
+      onMismatch: playError,
+    });
 
   const slotElements = useRef(new Map<string, HTMLDivElement>());
 
@@ -53,13 +54,22 @@ export function OrderingBoard({ presetId, onComplete }: OrderingBoardProps) {
       <span className="text-lg font-bold text-earth">Nhỏ nhất → Lớn nhất</span>
 
       <div className="flex w-full items-end justify-center gap-3 sm:gap-4">
-        {slotIds.map((id) => (
-          <div
-            key={id}
-            ref={(el) => registerSlot(id, el)}
-            className="flex h-24 w-20 items-center justify-center rounded-2xl border-4 border-dashed border-earth/30 bg-white/40 sm:h-28 sm:w-24"
-          />
-        ))}
+        {slotIds.map((id) => {
+          const settled = settledBySlot[id];
+          return (
+            <div
+              key={id}
+              ref={(el) => registerSlot(id, el)}
+              className={`flex h-24 w-20 items-center justify-center rounded-2xl border-4 sm:h-28 sm:w-24 ${
+                settled ? 'border-grass bg-grass-soft' : 'border-dashed border-earth/30 bg-white/40'
+              }`}
+            >
+              {settled && (
+                <span style={{ fontSize: magnitudeFontSize(settled.magnitude) }}>{shape}</span>
+              )}
+            </div>
+          );
+        })}
       </div>
 
       <div className="flex w-full flex-wrap items-center justify-center gap-4">
